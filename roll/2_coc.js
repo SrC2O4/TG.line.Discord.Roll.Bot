@@ -3,7 +3,7 @@ const rollbase = require('./rollbase.js');
 var variables = {};
 
 var gameName = function () {
-	return '【克蘇魯神話】 cc cc(n)1~2 ccb ccrt ccsu .dp .cc7build .cc6build .cc7bg'
+	return '【克苏鲁神话】 cc cc(n)1~2 ccb ccrt ccsu .dp .cc7build .cc6build .cc7bg'
 }
 
 var gameType = function () {
@@ -15,25 +15,25 @@ var prefixs = function () {
 		second: null
 	},
 	{
-		first: /(^ccb$)|(^cc$)|(^ccn[1-2]$)|(^cc[1-2]$)|(^[.]dp$)|(^成長檢定$)|(^幕間成長$)/i,
+		first: /(^ccb$)|(^cc$)|(^ccn[1-2]$)|(^cc[1-2]$)|(^[.]dp$)|(^成长检定$)|(^幕间成长$)/i,
 		second: /(^\d+$)|(^help$)/i
 	}
 	]
 }
 var getHelpMessage = async function () {
-	return `【克蘇魯神話】
-coc6版擲骰： ccb 80 技能小於等於80
-coc7版擲骰： cc 80 技能小於等於80
-coc7版獎勵骰： cc(1~2) cc1 80 一粒獎勵骰
-coc7版懲罰骰： ccn(1~2) ccn2 80 兩粒懲罰骰
-coc7版 即時型瘋狂： 啓動語 ccrt
-coc7版 總結型瘋狂： 啓動語 ccsu
-coc pulp版創角： 啓動語 .ccpulpbuild
-coc6版創角： 啓動語 .cc6build
-coc7版創角： 啓動語 .cc7build (歲數7-89)
-coc7 成長或增長檢定： .dp 或 成長檢定 或 幕間成長 (技能%) (名稱)
-例）.DP 50 騎馬 | 成長檢定 45 頭槌 | 幕間成長 40 單車
-coc7版角色背景隨機生成： 啓動語 .cc7bg`
+	return `【克苏鲁神话】
+coc6版掷骰： ccb 80 技能小于等于80
+coc7版掷骰： cc 80 技能小于等于80
+coc7版奖励骰： cc(1~2) cc1 80 一粒奖励骰
+coc7版惩罚骰： ccn(1~2) ccn2 80 两粒惩罚骰
+coc7版 即时型疯狂： 启动语 ccrt
+coc7版 总结型疯狂： 启动语 ccsu
+coc pulp版创角： 启动语 .ccpulpbuild
+coc6版创角： 启动语 .cc6build
+coc7版创角： 启动语 .cc7build (岁数7-89)
+coc7 成长或增长检定： .dp 或 成长检定 或 幕间成长 (技能%) (名称)
+例）.DP 50 骑马 | 成长检定 45 头槌 | 幕间成长 40 单车
+coc7版角色背景随机生成： 启动语 .cc7bg`
 }
 var initialize = function () {
 	return variables;
@@ -66,7 +66,7 @@ var rollDiceCommand = async function ({
 		rply.text = await coc6(mainMsg[1], mainMsg[2]);
 	}
 	//DevelopmentPhase幕間成長指令開始於此
-	if ((trigger == '.dp' || trigger == '成長檢定' || trigger == '幕間成長') && mainMsg[1] <= 1000) {
+	if ((trigger == '.dp' || trigger == '成长检定' || trigger == '幕间成长') && mainMsg[1] <= 1000) {
 		rply.text = await DevelopmentPhase(mainMsg[1], mainMsg[2]);
 	}
 
@@ -87,13 +87,13 @@ var rollDiceCommand = async function ({
 	if (trigger == 'ccn2' && mainMsg[1] <= 1000) {
 		rply.text = await coc7bp(mainMsg[1], '-2', mainMsg[2]);
 	}
-	if (trigger.match(/(^cc7版創角$)|(^[.]cc7build$)/i) != null) {
+	if (trigger.match(/(^cc7版创角$)|(^[.]cc7build$)/i) != null) {
 		rply.text = await (await build7char(mainMsg[1])).replace(/\*5/ig, ' * 5');
 	}
-	if (trigger.match(/(^ccpulp版創角$)|(^[.]ccpulpbuild$)/i) != null) {
+	if (trigger.match(/(^ccpulp版创角$)|(^[.]ccpulpbuild$)/i) != null) {
 		rply.text = await (await buildpulpchar(mainMsg[1])).replace(/\*5/ig, ' * 5');
 	}
-	if (trigger.match(/(^cc6版創角$)|(^[.]cc6build$)/i) != null) {
+	if (trigger.match(/(^cc6版创角$)|(^[.]cc6build$)/i) != null) {
 		rply.text = await build6char(mainMsg[1]);
 	}
 	if (trigger.match(/(^cc7版角色背景$)|(^[.]cc7bg$)/i) != null) {
@@ -374,9 +374,9 @@ async function DevelopmentPhase(target, text) {
 	let improved = await rollbase.Dice(10);
 	if (target > 95) target = 95;
 	if (skill >= 96 || skill > target) {
-		result = "成長或增強檢定: " + text + "\n1D100 > " + target + "\n擲出: " + skill + " → 成功!\n你的技能增加" + improved + "點!";
+		result = "成长或增强检定: " + text + "\n1D100 > " + target + "\n掷出: " + skill + " → 成功!\n你的技能增加" + improved + "点!";
 	} else {
-		result = "成長或增強檢定: " + text + "\n1D100 > " + target + "\n擲出: " + skill + " → 失敗!\n你的技能沒有變化!";
+		result = "成长或增强检定: " + text + "\n1D100 > " + target + "\n掷出: " + skill + " → 失败!\n你的技能没有变化!";
 	}
 	return result;
 }
@@ -413,10 +413,10 @@ async function ccsu() {
 async function coc6(chack, text) {
 	let result = '';
 	let temp = await rollbase.Dice(100);
-	if (temp == 100) result = 'ccb<=' + chack + '\n' + temp + ' → 啊！大失敗！';
+	if (temp == 100) result = 'ccb<=' + chack + '\n' + temp + ' → 啊！大失败！';
 	else
 		if (temp <= chack) result = 'ccb<=' + chack + '\n' + temp + ' → 成功';
-		else result = 'ccb<=' + chack + '\n' + temp + ' → 失敗';
+		else result = 'ccb<=' + chack + '\n' + temp + ' → 失败';
 	if (text)
 		result += '；' + text;
 	return result;
@@ -499,7 +499,7 @@ async function coc7bp(chack, bpdiceNum, text) {
 	}
 }
 async function buildpulpchar() {
-	let ReStr = 'Pulp CoC 不使用年齡調整\n';
+	let ReStr = 'Pulp CoC 不使用年龄调整\n';
 	//讀取年齡
 	ReStr += '\nＳＴＲ：' + await rollbase.BuildDiceCal('3d6*5');
 	ReStr += '\nＤＥＸ：' + await rollbase.BuildDiceCal('3d6*5');
@@ -523,14 +523,14 @@ async function buildpulpchar() {
  */
 async function build7char(text01) {
 	let old = "";
-	let ReStr = '調查員年齡設為：';
+	let ReStr = '调查员年龄设为：';
 	//讀取年齡
 	if (text01) old = text01.replace(/\D/g, '');
 	if (old) {
 		ReStr += old + '\n';
 	} else {
 		old = 18;
-		ReStr += old + ' (沒有填寫歲數,使用預設值)\n';
+		ReStr += old + ' (沒有填写岁数,使用预设值)\n';
 	}
 	//設定 因年齡減少的點數 和 EDU加骰次數
 	let Debuff = 0;
@@ -539,15 +539,15 @@ async function build7char(text01) {
 
 
 	if (old < 7) {
-		ReStr += '\n等等，核心規則或日本拓展沒有適用小於7歲的人物哦。\n先當成15歲處理\n';
+		ReStr += '\n等等，核心规则或日本拓展没有适用小于7岁的人物哦。\n先当成15岁处理\n';
 		old = 15;
 	}
 
 	if (old >= 7 && old <= 14) {
-		ReStr += '\n等等，核心規則沒有適用小於15歲的人物哦。\n先使用日本CoC 7th 2020 拓展 - 7到14歲的幼年調查員規則吧\n';
+		ReStr += '\n等等，核心规则没有适用小于15岁的人物哦。\n先使用日本CoC 7th 2020 拓展 - 7到14岁的幼年调查员规则吧\n';
 	}
 	if (old >= 90) {
-		ReStr += '\n等等，核心規則沒有適用於90歲以上的人物哦。\n先當成89歲處理\n';
+		ReStr += '\n等等，核心规则没有适用于90岁以上的人物哦。\n先当成89岁处理\n';
 		old = 89;
 	}
 	for (let i = 0; old >= oldArr[i]; i++) {
@@ -587,46 +587,46 @@ async function build7char(text01) {
 				ReStr += '\nＥＤＵ：' + EDUinc;
 				ReStr += '\nＬＵＫ：' + await rollbase.BuildDiceCal('3d6*5');
 				ReStr += '\nＬＵＫ加骰取高：' + await rollbase.BuildDiceCal('3D6*5');
-				ReStr += '\n幼年調查員的特性：' + await rollbase.BuildDiceCal('2d6');
-				ReStr += '\n幼年調查員的家境：' + await rollbase.BuildDiceCal('1D100');
-				ReStr += '\n幼年調查員可受「幫忙」的次數：' + Math.round((17 - old) / 3);
+				ReStr += '\n幼年调查员的特性：' + await rollbase.BuildDiceCal('2d6');
+				ReStr += '\n幼年调查员的家境：' + await rollbase.BuildDiceCal('1D100');
+				ReStr += '\n幼年调查员可受「帮忙」的次数：' + Math.round((17 - old) / 3);
 				return ReStr;
 			}
 
 		case (old >= 15 && old <= 19):
-			ReStr += '年齡調整：從STR或SIZ中減去' + Debuff + '點\n（請自行手動選擇計算）。\nEDU減去5點。LUK骰兩次取高。';
+			ReStr += '年龄调整：从STR或SIZ中减去' + Debuff + '点\n（请自行手动选择计算）。\nEDU减去5点。LUK骰两次取高。';
 			ReStr += '\n==';
-			ReStr += '\n（以下箭號兩項，減值' + Debuff + '點。）';
+			ReStr += '\n（以下箭号两项，减值' + Debuff + '点。）';
 			break;
 		case (old >= 20 && old <= 39):
-			ReStr += '年齡調整：可做' + EDUinc + '次EDU的成長擲骰。';
+			ReStr += '年龄调整：可做' + EDUinc + '次EDU的成长掷骰。';
 			ReStr += '\n==';
 			break;
 		case (old >= 40 && old <= 49):
-			ReStr += '年齡調整：從STR、DEX或CON中減去' + Debuff + '點\n（請自行手動選擇計算）。\nAPP減去' + AppDebuff + '點。進行' + EDUinc + '次EDU的成長擲骰。';
+			ReStr += '年龄调整：从STR、DEX或CON中减去' + Debuff + '点\n（请自行手动选择计算）。\nAPP减去' + AppDebuff + '点。进行' + EDUinc + '次EDU的成长掷骰。';
 			ReStr += '\n==';
-			ReStr += '\n（以下箭號三項，自選減去' + Debuff + '點。）';
+			ReStr += '\n（以下箭号三项，自选减去' + Debuff + '点。）';
 			break;
 		case (old >= 50):
-			ReStr += '年齡調整：從STR、DEX或CON中減去' + Debuff + '點\n（從一，二或全部三項中選擇）\n（請自行手動選擇計算）。\nAPP減去' + AppDebuff + '點。進行' + EDUinc + '次EDU的成長擲骰。';
+			ReStr += '年龄调整：从STR、DEX或CON中减去' + Debuff + '点\n（从一，二或全部三项中选择）\n（请自行手动选择计算）。\nAPP减去' + AppDebuff + '点。进行' + EDUinc + '次EDU的成长掷骰。';
 			ReStr += '\n==';
-			ReStr += '\n（以下箭號三項，自選減去' + Debuff + '點。）';
+			ReStr += '\n（以下箭号三项，自选减去' + Debuff + '点。）';
 			break;
 
 		default:
 			break;
 	}
 	ReStr += '\nＳＴＲ：' + await rollbase.BuildDiceCal('3d6*5');
-	if (old >= 40) ReStr += ' ←（可選） ';
-	if (old < 20) ReStr += ' ←（可選）';
+	if (old >= 40) ReStr += ' ←（可选） ';
+	if (old < 20) ReStr += ' ←（可选）';
 
 	ReStr += '\nＤＥＸ：' + await rollbase.BuildDiceCal('3d6*5');
-	if (old >= 40) ReStr += ' ← （可選）';
+	if (old >= 40) ReStr += ' ← （可选）';
 
 	ReStr += '\nＰＯＷ：' + await rollbase.BuildDiceCal('3d6*5');
 
 	ReStr += '\nＣＯＮ：' + await rollbase.BuildDiceCal('3d6*5');
-	if (old >= 40) ReStr += ' ← （可選）'
+	if (old >= 40) ReStr += ' ← （可选）'
 
 	if (old >= 40) {
 		ReStr += '\nＡＰＰ：' + await rollbase.BuildDiceCal('(3d6*5)-' + AppDebuff)
@@ -635,7 +635,7 @@ async function build7char(text01) {
 
 	ReStr += '\nＳＩＺ：' + await rollbase.BuildDiceCal('(2d6+6)*5');
 	if (old < 20) {
-		ReStr += ' ←（可選）';
+		ReStr += ' ←（可选）';
 	}
 
 	ReStr += '\nＩＮＴ：' + await rollbase.BuildDiceCal('(2d6+6)*5');
@@ -650,23 +650,23 @@ async function build7char(text01) {
 
 		for (let i = 1; i <= EDUinc; i++) {
 			let EDURoll = await rollbase.Dice(100);
-			ReStr += '\n第' + i + '次EDU成長 → ' + EDURoll;
+			ReStr += '\n第' + i + '次EDU成长 → ' + EDURoll;
 			if (EDURoll > tempEDU) {
 				let EDUplus = await rollbase.Dice(10);
-				ReStr += ' → 成長' + EDUplus + '點';
+				ReStr += ' → 成长' + EDUplus + '点';
 				tempEDU = tempEDU + EDUplus;
 			} else {
-				ReStr += ' → 沒有成長';
+				ReStr += ' → 没有成长';
 			}
 		}
 		ReStr += '\n';
-		ReStr += '\nＥＤＵ最終值：' + tempEDU;
+		ReStr += '\nＥＤＵ最终值：' + tempEDU;
 	}
 	ReStr += '\n==';
 
 	ReStr += '\nＬＵＫ：' + await rollbase.BuildDiceCal('3d6*5');
 	if (old < 20) ReStr += '\nＬＵＫ加骰：' + await rollbase.BuildDiceCal('3D6*5');
-	ReStr += '\n==\n煤油燈特徵: 1D6&1D20 → ' + await rollbase.Dice(6) + ',' + await rollbase.Dice(20);
+	ReStr += '\n==\n煤油灯特征: 1D6&1D20 → ' + await rollbase.Dice(6) + ',' + await rollbase.Dice(20);
 	return ReStr;
 }
 
@@ -707,7 +707,7 @@ async function build6char() {
 	 if (old>=40) ReStr  += '\n（以下箭號三項，自選共減' + Debuff + '點。）' ;
 		if (old<20) ReStr  += '\n（以下箭號兩項，擇一減去' + Debuff + '點。）' ;
 	 */
-	let ReStr = '六版核心創角：';
+	let ReStr = '六版核心创角：';
 	ReStr += '\nＳＴＲ：' + await rollbase.BuildDiceCal('3d6');
 	ReStr += '\nＤＥＸ：' + await rollbase.BuildDiceCal('3d6');
 	ReStr += '\nＣＯＮ：' + await rollbase.BuildDiceCal('3d6');
@@ -717,10 +717,10 @@ async function build6char() {
 	ReStr += '\nＳＩＺ：' + await rollbase.BuildDiceCal('(2d6+6)');
 	ReStr += '\nＥＤＵ：' + await rollbase.BuildDiceCal('(3d6+3)');
 	ReStr += '\n年收入：' + await rollbase.BuildDiceCal('(1d10)');
-	ReStr += '\n調查員的最小起始年齡等於EDU+6，每比起始年齡年老十年，\n調查員增加一點EDU並且加20點職業技能點數。\n當超過40歲後，每老十年，\n從STR,CON,DEX,APP中選擇一個減少一點。';
+	ReStr += '\n调查员的最小起始年龄等于EDU+6，每比起始年龄年老十年，\n调查员增加一点EDU并且加20点职业技能点数。\n当超过40岁后，每老十年，\n从STR,CON,DEX,APP中选择一个减少一点。';
 	return ReStr;
 }
-//隨機產生角色背景
+//随机产生角色背景
 async function PcBG() {
-	return '背景描述生成器（僅供娛樂用，不具實際參考價值）\n==\n調查員是一個' + PersonalDescriptionArr[await rollbase.Dice(PersonalDescriptionArr.length) - 1] + '人。\n【信念】：說到這個人，他' + IdeologyBeliefsArr[await rollbase.Dice(IdeologyBeliefsArr.length) - 1] + '。\n【重要之人】：對他來說，最重要的人是' + SignificantPeopleArr[await rollbase.Dice(SignificantPeopleArr.length) - 1] + '，這個人對他來說之所以重要，是因為' + SignificantPeopleWhyArr[await rollbase.Dice(SignificantPeopleWhyArr.length) - 1] + '。\n【意義非凡之地】：對他而言，最重要的地點是' + MeaningfulLocationsArr[await rollbase.Dice(MeaningfulLocationsArr.length) - 1] + '。\n【寶貴之物】：他最寶貴的東西就是' + TreasuredPossessionsArr[await rollbase.Dice(TreasuredPossessionsArr.length) - 1] + '。\n【特徵】：總括來說，調查員是一個' + TraitsArr[await rollbase.Dice(TraitsArr.length) - 1] + '。';
+	return '背景描述生成器（仅供娱乐用，不具实际参考价值）\n==\n调查员是一个' + PersonalDescriptionArr[await rollbase.Dice(PersonalDescriptionArr.length) - 1] + '人。\n【信念】：说到这个人，他' + IdeologyBeliefsArr[await rollbase.Dice(IdeologyBeliefsArr.length) - 1] + '。\n【重要之人】：对他来说，最重要的人是' + SignificantPeopleArr[await rollbase.Dice(SignificantPeopleArr.length) - 1] + '，这个人对他来说之所以重要，是因为' + SignificantPeopleWhyArr[await rollbase.Dice(SignificantPeopleWhyArr.length) - 1] + '。\n【意义非凡之地】：对他而言，最重要的地点是' + MeaningfulLocationsArr[await rollbase.Dice(MeaningfulLocationsArr.length) - 1] + '。\n【宝贵之物】：他最宝贵的东西就是' + TreasuredPossessionsArr[await rollbase.Dice(TreasuredPossessionsArr.length) - 1] + '。\n【特徵】：总括来说，调查员是一个' + TraitsArr[await rollbase.Dice(TraitsArr.length) - 1] + '。';
 }
