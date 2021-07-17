@@ -12,7 +12,7 @@ const regex = /(\d+)d(\d+)(kh|kl|dh|dl|k|)(\d+|)/i;
 var variables = {};
 
 var gameName = function () {
-  return '基本擲骰'
+  return '基本掷骰'
 }
 
 var gameType = function () {
@@ -35,14 +35,14 @@ var prefixs = function () {
 
 ///^(?=.*he)(?!.*da).*$/ig
 const getHelpMessage = async function () {
-  return `【基本擲骰】1d100(khN|klN|dhN|dlN)
-例如輸入(2d6+1)*2  攻撃！
-會輸出）(2d6+1)*2：攻撃！  (10[5+5]+1)2 = 22
-如上面一樣,在骰子數字後方隔空白位打字,可以進行發言。
-5 3D6 ：	分別骰出5次3d6 最多30次
-((2d6+1)*2)-5/2>=10 支援括號加減乘除及大於小於(>,<,>=,<=)計算
-支援kh|kl|dh|dl，k keep保留，d drop 放棄，h highest最高，l lowest最低
-如3d6kh 保留最大的1粒骰，3d6dl2 放棄最小的2粒骰`
+  return `【基本掷骰】1d100(khN|klN|dhN|dlN)
+例如输入(2d6+1)*2  攻击！
+会输出）(2d6+1)*2：攻击！  (10[5+5]+1)2 = 22
+如上面一样,在骰子数字后方隔空白位打字,可以进行发言。
+5 3D6 ：	分别骰出5次3d6 最多30次
+((2d6+1)*2)-5/2>=10 支援括号加减乘除及大于小于(>,<,>=,<=)计算
+支援kh|kl|dh|dl，k keep保留，d drop 放弃，h highest最高，l lowest最低
+如3d6kh 保留最大的1粒骰，3d6dl2 放弃最小的2粒骰`
 }
 var initialize = function () {
   return variables;
@@ -251,16 +251,16 @@ async function onetimeroll(text0) {
   while (equation.match(regex) != null) {
     // let totally = 0
     let tempMatch = equation.match(regex)
-    if (tempMatch[1] > 1000 || tempMatch[1] <= 0) return '不支援零顆以下及一千顆骰以上'
-    if (tempMatch[2] < 1 || tempMatch[2] > 9000000000000000) return '不支援一以下及九千兆以上'
+    if (tempMatch[1] > 1000 || tempMatch[1] <= 0) return '不支持零颗以下及一千颗骰以上'
+    if (tempMatch[2] < 1 || tempMatch[2] > 9000000000000000) return '不支持一以下及九千兆以上'
     equation = equation.replace(regex, await RollDice(tempMatch))
   }
   // 計算算式
   let aaa = equation
   aaa = aaa.replace(/\[.+?\]/ig, '')
-  let answer = math.evaluate(aaa.toString()).toString().replace(/true/i, "成功").replace(/false/i, "失敗");
+  let answer = math.evaluate(aaa.toString()).toString().replace(/true/i, "成功").replace(/false/i, "失败");
   if (equation.match(/[\s\S]{1,250}/g).length > 1) {
-    Str = answer + '（計算過程太長，僅顯示結果）';
+    Str = answer + '（计算过程太长，仅显示结果）';
   } else {
     Str = equation + ' = ' + answer
   }
