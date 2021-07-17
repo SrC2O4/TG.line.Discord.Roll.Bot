@@ -5,7 +5,7 @@ var variables = {};
 const regexxBy = /^((\d+)(b)(\d+))/i
 const regexxUy = /^(\d+)(u)(\d+)/i
 var gameName = function () {
-	return '【進階擲骰】 .ca (計算)|D66(sn)|5B10 Dx|5U10 x y|.int x y'
+	return '【进阶掷骰】 .ca (計算)|D66(sn)|5B10 Dx|5U10 x y|.int x y'
 }
 
 var gameType = function () {
@@ -35,17 +35,17 @@ var prefixs = function () {
 	]
 }
 var getHelpMessage = async function () {
-	return `【進階擲骰】
-.ca 進行數學計算(不支援擲骰)
+	return `【进阶掷骰】
+.ca 进行数学计算(不支持掷骰)
 例如: .ca 1.2 * (2 + 4.5) ， 12.7 米 to inch 
-sin(45 deg) ^ 2  5磅轉斤 10米轉呎 10米=吋
-D66 D66s D66n：	骰出D66 s數字小在前 n大在前
-5B10：	不加總的擲骰 
-5B10<>=x ：	如上,另外計算其中有多少粒大於小於X 
-5B10 (D)x ：	如上,用空格取代, 即大於, 使用D即小於
-即 5B10 5 相當於 5B10>=5 5B10 D5 相當於 5B10<=5  
-5U10 8：	進行5D10 每骰出一粒8會有一粒獎勵骰 
-5U10 8 9：	如上,另外計算其中有多少粒大於9 
+sin(45 deg) ^ 2  5磅转斤 10米转呎 10米=吋
+D66 D66s D66n：	骰出D66 s数字小在前 n大在前
+5B10：	不加总的掷骰 
+5B10<>=x ：	如上,另外计算其中有多少粒大于小于X 
+5B10 (D)x ：	如上,用空格取代, 即大于, 使用D即小于
+即 5B10 5 相当于 5B10>=5 5B10 D5 相当于 5B10<=5  
+5U10 8：	进行5D10 每骰出一粒8会有一粒奖励骰 
+5U10 8 9：	如上,另外计算其中有多少粒大于9 
 .int 20 30: 即骰出20-30`
 }
 
@@ -112,7 +112,7 @@ var rollDiceCommand = async function ({
 			points.sort(function (a, b) {
 				return a - b
 			});
-			rply.text = '投擲 ' + points[0] + ' - ' + points[1] + '：\n→ ' + await rollbase.DiceINT(points[0], points[1]);
+			rply.text = '投掷 ' + points[0] + ' - ' + points[1] + '：\n→ ' + await rollbase.DiceINT(points[0], points[1]);
 			return rply
 		default:
 			break;
@@ -297,7 +297,7 @@ async function xBy(triggermsg, text01, text02, botname) {
 		}
 	}
 	returnStr += ' → ' + varcou.join(', ');
-	if (match[5]) returnStr += ' \n→ 成功數' + mathjs.evaluate(Number(varsu) + (temptriggermsg || 0))
+	if (match[5]) returnStr += ' \n→ 成功数' + mathjs.evaluate(Number(varsu) + (temptriggermsg || 0))
 	if (text) returnStr += ' ；　' + text
 	return returnStr;
 }
@@ -357,7 +357,7 @@ async function xUy(triggermsg, text01, text02, text03) {
 		for (let i = 0; i < varcou.length; i++) {
 			if (Number(varcou[i]) >= Number(text02)) suc++;
 		}
-		returnStr += ' → 成功數' + suc;
+		returnStr += ' → 成功数' + suc;
 	} else
 	//  (5U10[8]) → 17[10,7],4,5,7,4 → 17/37(最大/合計)
 
@@ -365,7 +365,7 @@ async function xUy(triggermsg, text01, text02, text03) {
 		returnStr += '\n → ' + Math.max.apply(null, varcou)
 		returnStr += '/' + varcou.reduce(function (previousValue, currentValue) {
 			return previousValue + currentValue;
-		}) + '(最大/合計)';
+		}) + '(最大/合合计)';
 	}
 	return returnStr;
 }
