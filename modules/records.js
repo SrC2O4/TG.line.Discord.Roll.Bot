@@ -585,15 +585,7 @@ class Records extends EventEmitter {
             $max: {
                 //實時資料 使用SET
                 "RealTimeRollingLogfunction.DiscordCountRoll": msg.DiscordCountRoll,
-                "RealTimeRollingLogfunction.DiscordCountText": msg.DiscordCountText,
-                "RealTimeRollingLogfunction.LineCountRoll": msg.LineCountRoll,
-                "RealTimeRollingLogfunction.LineCountText": msg.LineCountText,
-                "RealTimeRollingLogfunction.TelegramCountRoll": msg.TelegramCountRoll,
-                "RealTimeRollingLogfunction.TelegramCountText": msg.TelegramCountText,
-                "RealTimeRollingLogfunction.WhatsappCountRoll": msg.WhatsappCountRoll,
-                "RealTimeRollingLogfunction.WhatsappCountText": msg.WhatsappCountText,
-                "RealTimeRollingLogfunction.WWWCountRoll": msg.WWWCountRoll,
-                "RealTimeRollingLogfunction.WWWCountText": msg.WWWCountText
+                "RealTimeRollingLogfunction.DiscordCountText": msg.DiscordCountText
                 //中途紀錄資料 使用PUSH 每天紀錄一次
                 // RollingLogfunction: msg,
                 //擲骰的結果紀錄
@@ -628,15 +620,7 @@ class Records extends EventEmitter {
                 $max: {
                     //大於則更新
                     "RollingLogfunction.DiscordCountRoll": msg.DiscordCountRoll,
-                    "RollingLogfunction.DiscordCountText": msg.DiscordCountText,
-                    "RollingLogfunction.LineCountRoll": msg.LineCountRoll,
-                    "RollingLogfunction.LineCountText": msg.LineCountText,
-                    "RollingLogfunction.TelegramCountRoll": msg.TelegramCountRoll,
-                    "RollingLogfunction.TelegramCountText": msg.TelegramCountText,
-                    "RollingLogfunction.WhatsappCountRoll": msg.WhatsappCountRoll,
-                    "RollingLogfunction.WhatsappCountText": msg.WhatsappCountText,
-                    "RollingLogfunction.WWWCountRoll": msg.WWWCountRoll,
-                    "RollingLogfunction.WWWCountText": msg.WWWCountText
+                    "RollingLogfunction.DiscordCountText": msg.DiscordCountText
                     //中途紀錄資料 使用PUSH 每天紀錄一次
                     // RollingLogfunction: msg,
                     //擲骰的結果紀錄

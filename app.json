@@ -9,32 +9,12 @@
 		"SAD"
 	],
 	"env": {
-		"LINE_CHANNEL_SECRET": {
-			"description": "LINE_Channel_Secret",
-			"required": false
-		},
-		"LINE_CHANNEL_ACCESSTOKEN": {
-			"description": "LINE_Channel_Accesstoken",
-			"required": false
-		},
 		"DISCORD_CHANNEL_KEYWORD": {
 			"description": "Discord Bot的啓動語 如 !trpg 可留空",
 			"required": false
 		},
 		"DISCORD_CHANNEL_SECRET": {
 			"description": "「Token」 ",
-			"required": false
-		},
-		"TELEGRAM_CHANNEL_KEYWORD": {
-			"description": "Telegram Bot的啓動語 如 !trpg 可留空",
-			"required": false
-		},
-		"TELEGRAM_CHANNEL_SECRET": {
-			"description": "「Token」 ",
-			"required": false
-		},
-		"mongoURL": {
-			"description": "「mLab 的KEY」 ",
 			"required": false
 		}
 	}

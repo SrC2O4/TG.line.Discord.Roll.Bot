@@ -448,7 +448,7 @@ async function nonDice(message, channelid) {
 
 //Set Activity 可以自定義正在玩什麼
 client.on('ready', async () => {
-	client.user.setActivity('🌼bothelp | hktrpg.com🍎');
+	client.user.setActivity('🌼bothelp');
 	if (togGGToken) {
 		setInterval(() => {
 			try {
@@ -463,7 +463,7 @@ client.on('ready', async () => {
 	setInterval(async () => {
 		switch (switchSetActivity % 2) {
 			case 1:
-				client.user.setActivity('🌼bothelp | hktrpg.com🍎');
+				client.user.setActivity('🌼bothelp');
 				break;
 			default:
 				client.user.setActivity(await count2());
