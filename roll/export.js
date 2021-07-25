@@ -139,7 +139,7 @@ var rollDiceCommand = async function ({
                 break;
             }
             if (demo) {
-                if (totalSize >= 500) {
+                if (totalSize >= 1000) {
                     break;
                 }
             }
@@ -385,7 +385,7 @@ var rollDiceCommand = async function ({
             if (userRemainingTime < 0 && checkUser && checkUser.times >= limit) {
                 rply.text = `你每星期完整下載聊天紀錄的上限為 ${limit} 次，
                 冷卻剩餘 ${millisToMinutesAndSeconds(userRemainingTime)} 時間，
-                現在正處於Demo模式，可以輸出500條信息，
+                現在正處於Demo模式，可以輸出1000條信息，
                 
                 支援及解鎖上限 https://www.patreon.com/HKTRPG
                 或自組服務器
